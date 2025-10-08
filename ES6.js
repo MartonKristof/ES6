@@ -7,30 +7,67 @@ const diakok = [
     { nev: "Emese", jegyek: [5, 5, 5, 4], kor: 17, osztaly: "12.A" }
 ];
 
+
+// Átlagok kiszámítása
 const atlagok = diakok.map(diak => {
     const atlag = diak.jegyek.reduce((osszeg, jegy) => osszeg + jegy, 0) / diak.jegyek.length;
     return { nev: diak.nev, atlag: atlag };
 });
 console.log("Diákok átlagai:", atlagok);
 
+
+// Csak a legjobb tanulók
 const legjobbDiakok = atlagok.filter(diak => diak.atlag >= 4.5);
 console.log("Legjobb diákok (átlag >= 4.5):", legjobbDiakok);
 
+
+// Keresés
 const bence = diakok.find(diak => diak.nev === "Bence");
 console.log("Bence jegyei:", bence.jegyek.join(", "));
 
-const vanMinden5os = diakok.some(diak => diak.jegyek.every(jegy => jegy === 5));
-console.log("Van-e olyan diák, akinek minden jegye 5-ös?", vanMinden5os ? "Igen" : "Nincs");
 
-const vanBukott = diakok.some(diak => diak.jegyek.includes(2));
-console.log("Van-e olyan diák, akinek legalább egy bukásra áll (2-es jegy)?", vanBukott ? "Igen" : "Nincs");
+// Ellenőrzés
 
+    // Van-e olyan diák, akinek minden jegye 5-ös?
+    const vanMinden5os = diakok.some(diak => diak.jegyek.every(jegy => jegy === 5));
+    console.log("Van-e olyan diák, akinek minden jegye 5-ös?", vanMinden5os ? "Igen" : "Nincs");
+
+    // Van-e olyan diák, akinek legalább egy bukásra áll (2-es jegy)?
+    const vanBukott = diakok.some(diak => diak.jegyek.includes(2));
+    console.log("Van-e olyan diák, akinek legalább egy bukásra áll (2-es jegy)?", vanBukott ? "Igen" : "Nincs");
+
+
+// Destrukturálás
 const [elsoDiak] = diakok;
 const { nev: elsoNev, kor: elsoKor, jegyek: elsoJegyek } = elsoDiak;
 console.log(`Első diák adatai - Név: ${elsoNev}, Kor: ${elsoKor}, Jegyek: ${elsoJegyek.join(", ")}`);
 
 
+// Új tanuló hozzáadása
+const ujDiak = { nev: "Fanni", jegyek: [4, 5, 4, 5], kor: 17, osztaly: "12.A" };
+const ujDiakok = [...diakok, ujDiak];
+console.log("Új diákok listája (Fanni hozzáadva):", ujDiakok);
 
+// Jegyek frissítése
+const frissítésesJegyek = diakok.map(diak => {
+    const ujjegyek = diak.jegyek.map(jegy => Math.min(jegy + 1, 5));
+    return { ...diak, jegyek: ujjegyek };
+});
+console.log("Diákok jegyei +1 (de max 5):", frissítésesJegyek);
+
+// Átlag szerinti rendezés
+const rendezettAtlagok = [...atlagok].sort((a, b) => b.atlag - a.atlag);
+console.log("Diákok átlag szerint csökkenő sorrendben:", rendezettAtlagok);
+
+// Osztályonkénti csoportosítás
+const osztalyCsoportositas = diakok.reduce((obj, diak) => {
+    if (!obj[diak.osztaly]) {
+        obj[diak.osztaly] = [];
+    }
+    obj[diak.osztaly].push(diak);
+    return obj;
+}, {});
+console.log("Diákok osztályonként csoportosítva:", osztalyCsoportositas);
 
 
 
