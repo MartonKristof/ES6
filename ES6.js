@@ -1,9 +1,9 @@
 
 const diakok = [
     { nev: "Anna", jegyek: [5, 4, 5, 3], kor: 17, osztaly: "12.A" },
-    { nev: "Bence", jegyek: [3, 3, 3, 3], kor: 18, osztaly: "12.B" },
+    { nev: "Bence", jegyek: [2, 3, 3, 2], kor: 18, osztaly: "12.B" },
     { nev: "Csilla", jegyek: [4, 4, 5, 5], kor: 17, osztaly: "12.A" },
-    { nev: "Dávid", jegyek: [3, 3, 4, 3], kor: 18, osztaly: "12.B" },
+    { nev: "Dávid", jegyek: [3, 2, 4, 3], kor: 18, osztaly: "12.B" },
     { nev: "Emese", jegyek: [5, 5, 5, 4], kor: 17, osztaly: "12.A" }
 ];
 
@@ -22,8 +22,13 @@ console.log("Bence jegyei:", bence.jegyek.join(", "));
 const vanMinden5os = diakok.some(diak => diak.jegyek.every(jegy => jegy === 5));
 console.log("Van-e olyan diák, akinek minden jegye 5-ös?", vanMinden5os ? "Igen" : "Nincs");
 
-const vanBukott = diakok.some(diak => diak.jegyek.every(jegy => jegy != 2));
+const vanBukott = diakok.some(diak => diak.jegyek.includes(2));
 console.log("Van-e olyan diák, akinek legalább egy bukásra áll (2-es jegy)?", vanBukott ? "Igen" : "Nincs");
+
+const [elsoDiak] = diakok;
+const { nev: elsoNev, kor: elsoKor, jegyek: elsoJegyek } = elsoDiak;
+console.log(`Első diák adatai - Név: ${elsoNev}, Kor: ${elsoKor}, Jegyek: ${elsoJegyek.join(", ")}`);
+
 
 
 
